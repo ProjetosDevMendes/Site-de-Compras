@@ -62,7 +62,15 @@
           <h3>{{ product.name }}</h3>
           <p>{{ product.price }}</p>
           <button @click="addToCart(product)">Adicionar ao Carrinho</button>
-        </div>
+          <button v-if="isLoggedIn && (isAdmin || product.editing)" @click="editProduct(product)">Editar</button>
+          <div v-if="product.editing">
+            <input type="text" v-model="product.name">
+            <input type="text" v-model="product.price">
+            <button @click="saveProduct(product)">Salvar</button>
+            <button @click="cancelEdit(product)">Cancelar</button>
+          </div>
+          <button v-if="isLoggedIn && isAdmin" @click="removeProduct(product)">Excluir</button>
+        </div>        
       </div>
     </div>
 
